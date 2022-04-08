@@ -1,0 +1,24 @@
+package com.ophem.todo.app.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.ophem.todo.app.service.TodoService;
+
+@Controller
+public class TodoAppController {
+
+	@Autowired
+	private TodoService todoservice;
+	
+	@GetMapping("/")
+	public String getAllTodo(Model model){
+		
+		model.addAttribute("todos", todoservice.getAllTodo());
+		
+		return "todo";
+		
+	}
+}

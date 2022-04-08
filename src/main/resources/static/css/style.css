@@ -1,0 +1,40 @@
+@charset "ISO-8859-1";
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body{
+	background: #f2f2f3;
+}
+
+footer{
+	bottom: 0;
+	width: 100%;
+}
+
+.todolists{
+	width: 750px;
+	max-width: 100%;
+	margin: 0 auto;
+}
+.menu{
+	background: white;
+	height: 80vh;
+	bottom: 5;
+}
+.menu-header{
+	background-color: blue;
+	height: 100px;
+}
+.nav-link:hover{
+	background-color: blue;
+	color: white;
+	padding-left: 30px;
+}
+.content{
+	background: whitesmoke;
+	height: 80vh;
+}

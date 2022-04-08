@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Todo - App</title>
+<link th:rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link th:rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+
+	<!-- header section -->
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container">
+			<a class="navbar-brand" href="#">myTODO</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="#">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Dropdown </a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li><a class="dropdown-item" href="#">Action</a></li>
+							<li><a class="dropdown-item" href="#">Another action</a></li>
+							<li><hr class="dropdown-divider"></li>
+							<li><a class="dropdown-item" href="#">Something else
+									here</a></li>
+						</ul></li>
+					<li class="nav-item"><a class="nav-link disabled" href="#"
+						tabindex="-1" aria-disabled="true">Disabled</a></li>
+				</ul>
+				<form class="d-flex">
+					<input class="form-control me-2" type="search" placeholder="Search"
+						aria-label="Search">
+					<button class="btn btn-outline-success" type="submit">Search</button>
+				</form>
+			</div>
+		</div>
+	</nav>
+
+	<!-- CONTENT -->
+
+	<!-- body section -->
+
+	<div class="container">
+
+		<div class="row my-3">
+
+			<!-- side menu -->
+			<section class="col-md-3">
+
+				<div class="menu shadow-sm">
+					<div class="menu-header"></div>
+
+					<div class="menu-items">
+						<a class="nav-link" href="#">Todo</a> <a class="nav-link" href="#">Completed
+							Tasks</a> <a class="nav-link" href="#">Profile</a> <a
+							class="nav-link" href="#">Settings</a>
+					</div>
+				</div>
+			</section>
+
+			<!-- main content -->
+			<section class="col-md-9 content shadow-sm p-3">
+
+				<!-- create button -->
+				<div class="my-2 ">
+					<a class="btn btn-primary mr-2">Create Todo</a>
+				</div>
+
+				<!-- list of todos -->
+				<div class="rounded p-2">
+					<div class="todo shadow bg-light">
+						<div class="accordion bg-none" id="accordionExample"
+							th:each="todo, itrStat : ${todos}">
+							<div class="accordion-item mt-2">
+								<h2 class="accordion-header" th:id="heading + ${todo.id}">
+								
+								
+									<button class="accordion-button" type="button"
+										data-bs-toggle="collapse"
+										th:attr="data-bs-target=|#col${todo.id}" aria-expanded="false"
+										aria-controls="col${todo.id}" th:text="${todo.title}"></button>
+								</h2>
+								<div th:id="col + ${todo.id}"
+									class="accordion-collapse collapse show"
+									th:attr="aria-labelledby=|heading${todo.id}|"
+									data-bs-parent="#accordionExample">
+									<div class="accordion-body">
+										<p th:text="${todo.body}"></p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+			</section>
+		</div>
+
+	</div>
+
+	<!-- footer section -->
+
+	<footer class="row pb-3">
+		<div class="justify-content-center text-center">
+			<h5>James Damilare</h5>
+			<span>kNk &copy;</span>
+		</div>
+	</footer>
+
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+</body>
+</html>
