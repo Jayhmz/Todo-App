@@ -62,9 +62,10 @@
 					<div class="menu-header"></div>
 
 					<div class="menu-items">
-						<a class="nav-link" href="#">Todo</a> <a class="nav-link" href="#">Completed
-							Tasks</a> <a class="nav-link" href="#">Profile</a> <a
-							class="nav-link" href="#">Settings</a>
+						<a class="nav-link hover:shadow-sm" href="#">Todo</a> 
+						<a class="nav-link howver:shadow-sm" href="#">Completed Tasks</a> 
+						<a class="nav-link hover:shadow-sm" href="#">Profile</a> 
+						<a class="nav-link hover:shadow-sm" href="#">Settings</a>
 					</div>
 				</div>
 			</section>
@@ -73,28 +74,26 @@
 			<section class="col-md-9 content shadow-sm p-3">
 
 				<!-- create button -->
-				<div class="my-2 ">
+				<div class="mt-2 ">
 					<a class="btn btn-primary mr-2">Create Todo</a>
 				</div>
 
 				<!-- list of todos -->
 				<div class="rounded p-2">
-					<div class="todo shadow bg-light">
-						<div class="accordion bg-none" id="accordionExample"
-							th:each="todo, itrStat : ${todos}">
+					<div class="todo shadow bg-light" th:each="todo, itrStat : ${todos}">
+					
+						<div class="accordion bg-none" th:id="accordion + ${todo.id}">
 							<div class="accordion-item mt-2">
 								<h2 class="accordion-header" th:id="heading + ${todo.id}">
-								
-								
+
+
 									<button class="accordion-button" type="button"
 										data-bs-toggle="collapse"
-										th:attr="data-bs-target=|#col${todo.id}" aria-expanded="false"
-										aria-controls="col${todo.id}" th:text="${todo.title}"></button>
+										th:attr="data-bs-target=|#col${todo.id}|, aria-controls=|#col${todo.id}|, aria-expanded=false"
+										th:text="${todo.title}"></button>
 								</h2>
-								<div th:id="col + ${todo.id}"
-									class="accordion-collapse collapse show"
-									th:attr="aria-labelledby=|heading${todo.id}|"
-									data-bs-parent="#accordionExample">
+								<div th:id="col + ${todo.id}" class="accordion-collapse collapse show"
+									th:attr="aria-labelledby=|#heading${todo.id}|, data-bs-parent=|#accordion${todo.id}|">
 									<div class="accordion-body">
 										<p th:text="${todo.body}"></p>
 									</div>
