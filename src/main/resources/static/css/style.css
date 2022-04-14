@@ -38,3 +38,35 @@ footer{
 	background: whitesmoke;
 	height: 80vh;
 }
+
+.time{
+	padding-right: 10px;
+	width: 100%
+}
+
+.todo-body{
+	margin-bottom: 5px;
+}
+
+.todo-footer a{
+	margin-top: 6px;
+	margin-right: 5px;
+	padding: 2px 2px;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

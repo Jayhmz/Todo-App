@@ -10,5 +10,11 @@ public interface TodoService {
 	
 	TodoEntity save(TodoEntity todo);
 	
-	TodoEntity showById(TodoEntity todo, Integer id);
+	TodoEntity getTodoById(Integer id);
+	
+	TodoEntity update(TodoEntity todo, Integer id);
+	
+	void deleteById(Integer id);
+	
+	
 }

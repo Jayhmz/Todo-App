@@ -6,6 +6,12 @@
 <link th:rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 <link th:rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
+
+<script>
+	
+</script>
+
+
 <body>
 
 	<!-- header section -->
@@ -62,10 +68,10 @@
 					<div class="menu-header"></div>
 
 					<div class="menu-items">
-						<a class="nav-link hover:shadow-sm" href="#">Todo</a> 
-						<a class="nav-link howver:shadow-sm" href="#">Completed Tasks</a> 
-						<a class="nav-link hover:shadow-sm" href="#">Profile</a> 
-						<a class="nav-link hover:shadow-sm" href="#">Settings</a>
+						<a class="nav-link hover:shadow-sm" href="#">Todo</a> <a
+							class="nav-link howver:shadow-sm" href="#">Completed Tasks</a> <a
+							class="nav-link hover:shadow-sm" href="#">Profile</a> <a
+							class="nav-link hover:shadow-sm" href="#">Settings</a>
 					</div>
 				</div>
 			</section>
@@ -75,32 +81,75 @@
 
 				<!-- create button -->
 				<div class="mt-2 ">
-					<a class="btn btn-primary mr-2">Create Todo</a>
+					<!-- Button trigger modal -->
+					<button type="button" class="btn btn-primary"
+						data-bs-toggle="modal" data-bs-target="#exampleModal">
+						Add new</button>
+
+					<!-- Modal -->
+					<div class="modal fade mt-5" id="exampleModal" tabindex="-1"
+						aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">Create Todo</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<form id="form" th:action="@{/create-todo}" th:object="${tmodel}" method="POST">
+										<div class="mb-3">
+											<label for="exampleInputEmail1" class="form-label">Title</label>
+											 <input type="text" class="form-control"
+												id="todo-title" th:field="*{title}" aria-describedby="todo-title">
+										</div>
+										<div class="mb-3">
+											<label for="exampleInputPassword1" class="form-label">Description</label>
+											<textarea type="text" row="4" class="form-control"
+												id="todo-body" th:field="*{body}"></textarea>
+										</div>
+									</form>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-bs-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-primary" onclick="submitForm()">Create</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 
 				<!-- list of todos -->
 				<div class="rounded p-2">
 					<div class="todo shadow bg-light" th:each="todo, itrStat : ${todos}">
-					
-						<div class="accordion bg-none" th:id="accordion + ${todo.id}">
+
+						<div class="accordion" id="accordionExamp" >
 							<div class="accordion-item mt-2">
-								<h2 class="accordion-header" th:id="heading + ${todo.id}">
-
-
+								<h2 class="accordion-header d-flex justify-content-between" th:id="heading + ${itrStat.count}">
 									<button class="accordion-button" type="button"
 										data-bs-toggle="collapse"
-										th:attr="data-bs-target=|#col${todo.id}|, aria-controls=|#col${todo.id}|, aria-expanded=false"
-										th:text="${todo.title}"></button>
+										th:attr="data-bs-target=|#collapse${todo.id}|, aria-controls=|collapse${todo.id}|"
+										aria-expanded="false" th:text=${todo.title}></button>
+										
 								</h2>
-								<div th:id="col + ${todo.id}" class="accordion-collapse collapse show"
-									th:attr="aria-labelledby=|#heading${todo.id}|, data-bs-parent=|#accordion${todo.id}|">
+								<div th:id="collapse + ${todo.id}"
+									class="accordion-collapse collapse"
+									th:attr="aria-labelledby=|heading${itrStat.count}|"
+									data-bs-parent="#accordionExamp">
 									<div class="accordion-body">
-										<p th:text="${todo.body}"></p>
+										<div class="todo-body text-md" th:text="${todo.body}"></div>
+										<div class="todo-footer d-flex justify-content-center">
+											<a class=" bg-danger text-white rounded" th:href="@{/delete-todo/{id}(id=${todo.id})}">delete</a>
+											<a class=" bg-success text-white rounded" th:href="@{/complete-todo/{id}(id=${todo.id})}">mark complete</a>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
 
+
+						</div>
 					</div>
 				</div>
 
@@ -118,7 +167,12 @@
 		</div>
 	</footer>
 
-	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script>
+		function submitForm(){
+		 document.getElementById('form').submit();
+		}
+	</script>
 </body>
 </html>

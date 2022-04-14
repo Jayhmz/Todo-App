@@ -17,7 +17,7 @@ public class TodoServiceImpl implements TodoService {
 
 	@Override
 	public List<TodoEntity> getAllTodo() {
-		
+
 		return todoRepository.findAll();
 	}
 
@@ -27,15 +27,42 @@ public class TodoServiceImpl implements TodoService {
 	}
 
 	@Override
-	public TodoEntity showById(TodoEntity todo, Integer id) {
-		Optional<TodoEntity> existingTodo = todoRepository.findById(id);
-		if(existingTodo.isPresent())
-			return todoRepository.save(todo);
-		else
-			System.out.println("oops, todo does not exist");
-		return null;
+	public TodoEntity getTodoById(Integer id) {
+		Optional<TodoEntity> existingtodo = todoRepository.findById(id);
+		if(existingtodo.isPresent()) {
+			return todoRepository.getById(id);
+		}else {
+			return null;
+		}
+		
 	}
 
-	
+	@Override
+	public TodoEntity update(TodoEntity todo, Integer id) {
+		
+		TodoEntity existingTodo = todoRepository.getById(id);
+		
+		if(!existingTodo.equals(null)) {
+			todo.setTitle(existingTodo.getTitle());
+			todo.setBody(existingTodo.getBody());
+			todo.setCompleted(true);
+			return todoRepository.save(todo);
+		}else {
+			return null;
+		}
+		
+		
+	}
+
+	@Override
+	public void deleteById(Integer id) {
+		Optional<TodoEntity> todoId = todoRepository.findById(id);
+		if (todoId.isPresent()) {
+			todoRepository.deleteById(id);
+		} else {
+			System.out.println("unable to fetch todo id");
+		}
+	}
+
 
 }
